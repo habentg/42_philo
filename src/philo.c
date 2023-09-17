@@ -6,14 +6,14 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:25:32 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/14 13:14:04 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/17 19:05:03 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	main(int argc, char **argv)
+int	start_philo(t_data *data)
 {
-	check_argc(argc, argv);
+	(void)data;
 	return (0);
 }
