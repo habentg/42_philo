@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:23:29 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/17 19:01:46 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/19 00:08:29 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ long	ft_atoi(const char *str)
 			return (-1);
 		number = (number * 10) + (str[i] - '0');
 		if (number > INT_MAX || number < INT_MIN)
-			ft_error(INVALID_INPUT, NULL);
+			return (ft_error(INVALID_INPUT, NULL), -1);
 		i++;
 	}
 	return (number);
