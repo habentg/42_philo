@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:11:12 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/19 08:15:46 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/20 06:16:29 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <stdint.h>
 # include <limits.h>
 # include <pthread.h>
 # include <unistd.h>
@@ -51,13 +52,12 @@ struct	s_data;
 typedef struct s_philo
 {
 	int						philo_id;
-	pthread_t				thrd;
 	struct s_data			*data;
 	int						*r_fork;
 	int						*l_fork;
 	pthread_mutex_t			*r_lock;
 	pthread_mutex_t			*l_lock;
-	int						eating_flag;
+	int						no_meals;
 	unsigned long long		last_meal_time;
 }	t_philo;
 
@@ -71,12 +71,9 @@ typedef struct s_data
 	long long				time_sleep;
 	long long				start_time;
 	int						max_meals;
-	int						no_meals;
-	int						finished_eating;
 	int						is_dead;
 	int						*forks;
 	pthread_mutex_t			*fork_mutexes;
-	pthread_mutex_t			*data_lock;
 }							t_data;
 
 //philo init funcs
@@ -85,11 +82,15 @@ int							init_data(int argc, char **argv, t_data *data);
 int							init_philos(t_data *data);
 int							init_forks(t_data *data);
 int							start_philo(t_data *data);
+u_int64_t					get_time_ms(t_philo *philo);
+void						display_action(t_philo *philo, char *action);
 
 //philo actions
 int							is_philo_dead(t_philo *philo);
-void						how_many_meals(t_philo *philo);
 int							philo_take_forks(t_philo *philo);
+int							philo_eats(t_philo *philo);
+int							philo_sleeps(t_philo *philo);
+int							philo_thinks(t_philo *philo);
 
 // error, clean and other helper funcs funcs
 int							check_argc(int argc, char **argv);
@@ -97,7 +98,5 @@ long						ft_atoi(const char *str);
 void						ft_error(char *err_msg, t_data *data);
 void						ft_clean(t_data *data);
 void						*ft_calloc(size_t nitems, size_t size);
-u_int64_t					get_time_ms(t_philo *philo);
-void						display_action(t_philo *philo, char *action);
 
 #endif
