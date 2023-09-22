@@ -6,13 +6,13 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 03:57:43 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/20 05:39:14 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/20 13:48:25 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-u_int64_t	get_time_ms(t_philo *philo)
+unsigned long long	get_time_ms(t_philo *philo)
 {
 	struct timeval	tv;
 	long long		curr_time_ms;
@@ -22,6 +22,17 @@ u_int64_t	get_time_ms(t_philo *philo)
 	{
 		return (ft_error(GET_TIME_ERROR, philo->data), 1);
 	}
+	curr_time_ms = (tv.tv_sec * (unsigned long long)1000) + (tv.tv_usec / 1000);
+	return (curr_time_ms);
+}
+
+unsigned long long	get_time_ms_2()
+{
+	struct timeval	tv;
+	long long		curr_time_ms;
+
+	curr_time_ms = 0;
+	gettimeofday(&tv, 0);
 	curr_time_ms = (tv.tv_sec * (u_int64_t)1000) + (tv.tv_usec / 1000);
 	return (curr_time_ms);
 }

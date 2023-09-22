@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:25:32 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/20 06:15:05 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:29:43 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 void	*display_philo(void *philo_ptr)
 {
 	t_philo	*philo;
+	t_data	*data;
 
 	philo = (t_philo *)philo_ptr;
+	data = philo->data;
+
 	while (1)
 	{
-		philo->last_meal_time = get_time_ms(philo);
 		if (is_philo_dead(philo) == 1)
 			break ;
 		philo_take_forks(philo);
