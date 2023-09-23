@@ -12,14 +12,18 @@
 
 #include "../includes/philo.h"
 
+void	*one_philo(void *philo_ptr)
+{
+	// kill him
+}
+
 void	*display_philo(void *philo_ptr)
 {
 	t_philo	*philo;
-	t_data	*data;
+	// t_data	*data;
 
 	philo = (t_philo *)philo_ptr;
-	data = philo->data;
-
+	// data = philo->data;
 	while (1)
 	{
 		if (is_philo_dead(philo) == 1)
@@ -45,6 +49,14 @@ int	start_philo(t_data *data)
 
 	i = -1;
 	data->start_time = get_time_ms(data->philo);
+	if (data->no_philos == 1)
+	{
+		if (pthread_create(&data->thrd_id[0], NULL, &one_philo, \
+			&data->philo[i]) != 0)
+			return (ft_error(CREATE_TH_FAIL, data), 1);
+		if (pthread_join(data->thrd_id[0], NULL) != 0)
+			return (ft_error(JOIN_TH_FAIL, data), 1);
+	}
 	while (++i < data->no_philos)
 	{
 		if (pthread_create(&data->thrd_id[i], NULL, &display_philo, \

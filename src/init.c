@@ -63,8 +63,6 @@ int	init_data(int argc, char **argv, t_data *data)
 	data->max_meals = -1;
 	if (argc == 6)
 		data->max_meals = ft_atoi(argv[5]);
-	if (data->no_philos <= 0)
-		return (ft_error(INVALID_PHILO_INPUT, data), 1);
 	data->thrd_id = (pthread_t *)malloc(sizeof(pthread_t) * data->no_philos);
 	if (!data->thrd_id)
 		return (ft_error(THREAD_ALLOC_FAIL, data), 1);

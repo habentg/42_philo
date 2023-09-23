@@ -19,6 +19,8 @@ int	check_argc(int argc, char **argv)
 	i = 0;
 	if (argc < 5 || argc > 6)
 		return (ft_error(INVALID_PARAMS, NULL), 1);
+	if (ft_atoi(argv[1]) <= 0)
+		return (ft_error(INVALID_PHILO_INPUT, NULL), 1);
 	while (++i < argc)
 	{
 		if (ft_atoi(argv[i]) == -1)

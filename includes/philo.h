@@ -82,12 +82,12 @@ int							init_data(int argc, char **argv, t_data *data);
 int							init_philos(t_data *data);
 int							init_forks(t_data *data);
 int							start_philo(t_data *data);
-u_int64_t					get_time_ms(t_philo *philo);
-unsigned long long	get_time_ms_2();
+unsigned long long			get_time_ms(t_philo *philo);
+unsigned long long			get_time_ms_2();
 void						display_action(t_philo *philo, char *action);
 
 //philo actions
-void	*display_philo(void *philo_ptr);
+void						*display_philo(void *philo_ptr);
 int							is_philo_dead(t_philo *philo);
 int							philo_take_forks(t_philo *philo);
 int							philo_eats(t_philo *philo);

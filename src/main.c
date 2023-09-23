@@ -24,14 +24,20 @@ void	ft_clean(t_data *data)
 	int	i;
 
 	i = -1;
-	pthread_mutex_destroy(data->philo->r_lock);
-	pthread_mutex_destroy(data->philo->l_lock);
 	while (++i < data->no_philos)
 		pthread_mutex_destroy(&data->fork_mutexes[i]);
-	free(data->fork_mutexes);
-	free(data->forks);
-	free(data->philo);
-	free(data->thrd_id);
+	if (data->philo->r_lock)
+		pthread_mutex_destroy(data->philo->r_lock);
+	if (data->philo->l_lock)
+		pthread_mutex_destroy(data->philo->l_lock);
+	if (data->fork_mutexes)
+		free(data->fork_mutexes);
+	if (data->forks)
+		free(data->forks);
+	if (data->philo)
+		free(data->philo);
+	if (data->thrd_id)
+		free(data->thrd_id);
 }
 
 void	check_simulation(t_data *data)
