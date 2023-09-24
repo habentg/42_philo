@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:11:12 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/24 11:37:27 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/24 16:28:49 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,6 @@ long						ft_atoi(const char *str);
 void						ft_error(char *err_msg, t_data *data);
 void						ft_clean(t_data *data);
 void						*ft_calloc(size_t nitems, size_t size);
-void	ft_usleep(unsigned long long ms);
+void						ft_usleep(unsigned long long ms);
 
 #endif

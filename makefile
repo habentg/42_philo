@@ -6,7 +6,7 @@
 #    By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/14 10:12:00 by hatesfam          #+#    #+#              #
-#    Updated: 2023/09/20 12:53:19 by hatesfam         ###   ########.fr        #
+#    Updated: 2023/09/24 16:29:48 by hatesfam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ LINKER = -pthread
 RM = rm -rf
 
 SRC_DIR = src
-SRC_FILES = $(wildcard $(SRC_DIR)/*.c)
+SRC_FILES =  $(SRC_DIR)/*.c
 OBJ_FILES = ${SRC_FILES:.c=.o}
 
 all: $(NAME)
