@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 03:57:43 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/20 13:48:25 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/24 11:29:23 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,35 +26,29 @@ unsigned long long	get_time_ms(t_philo *philo)
 	return (curr_time_ms);
 }
 
-unsigned long long	get_time_ms_2()
-{
-	struct timeval	tv;
-	long long		curr_time_ms;
-
-	curr_time_ms = 0;
-	gettimeofday(&tv, 0);
-	curr_time_ms = (tv.tv_sec * (u_int64_t)1000) + (tv.tv_usec / 1000);
-	return (curr_time_ms);
-}
-
 void	display_action(t_philo *philo, char *action)
 {
 	unsigned long long	c_time;
 	unsigned long long	s_time;
 
+	pthread_mutex_lock(&philo->data->print_lock);
 	c_time = get_time_ms(philo);
 	s_time = philo->data->start_time;
 	printf("%lld %d %s\n", (c_time - s_time), philo->philo_id, action);
+	pthread_mutex_unlock(&philo->data->print_lock);
 }
 
 int	is_philo_dead(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->data->is_dead_lock);
 	if ((get_time_ms(philo) - philo->last_meal_time) > philo->data->time_die)
 		philo->data->is_dead = 1;
 	if (philo->data->is_dead == 1)
 	{
 		display_action(philo, DEAD);
+		pthread_mutex_unlock(&philo->data->is_dead_lock);
 		return (1);
 	}
+	pthread_mutex_unlock(&philo->data->is_dead_lock);
 	return (0);
 }

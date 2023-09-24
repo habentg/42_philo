@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:37:47 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/20 12:52:41 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/24 12:02:53 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ int	init_philos(t_data *data)
 	{
 		data->philo[i].philo_id = i + 1;
 		data->philo[i].data = data;
-		data->philo[i].r_fork = &(data->forks[data->philo[i].philo_id - 1]);
-		data->philo[i].l_fork = &(data->forks[(data->philo[i].philo_id) \
+		data->philo[i].r_fork = &(data->forks[i]);
+		data->philo[i].l_fork = &(data->forks[data->philo[i].philo_id \
 			% data->no_philos]);
 		data->philo[i].r_lock = &data->fork_mutexes \
 			[data->philo[i].philo_id - 1];
 		data->philo[i].l_lock = &data->fork_mutexes[(data->philo[i].philo_id) \
 			% data->no_philos];
 		data->philo[i].no_meals = 0;
-		data->philo[i].last_meal_time = get_time_ms_2();
+		data->philo[i].last_meal_time = get_time_ms(data->philo);
 	}
 	pthread_mutex_init(data->philo->r_lock, NULL);
 	pthread_mutex_init(data->philo->l_lock, NULL);
@@ -66,6 +66,8 @@ int	init_data(int argc, char **argv, t_data *data)
 	data->thrd_id = (pthread_t *)malloc(sizeof(pthread_t) * data->no_philos);
 	if (!data->thrd_id)
 		return (ft_error(THREAD_ALLOC_FAIL, data), 1);
+	pthread_mutex_init(&data->print_lock, NULL);
+	pthread_mutex_init(&data->is_dead_lock, NULL);
 	return (0);
 }
 
@@ -79,3 +81,11 @@ int	init(int argc, char **argv, t_data *data)
 		return (1);
 	return (0);
 }
+
+// for (int i = 0; i < data->no_philos; i++)
+// {
+// 	printf("%d Right fork: %p\n", data->philo[i].
+//		philo_id, data->philo[i].r_fork);
+// 	printf("%d Left fork: %p\n", data->philo[i].philo_id,
+//		 data->philo[i].l_fork);
+// }

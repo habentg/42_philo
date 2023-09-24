@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:11:12 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/22 14:35:37 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/24 11:37:27 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ typedef struct s_philo
 	int						*l_fork;
 	pthread_mutex_t			*r_lock;
 	pthread_mutex_t			*l_lock;
-	int						no_meals;
 	unsigned long long		last_meal_time;
+	int						no_meals;
 }	t_philo;
 
 typedef struct s_data
@@ -68,12 +68,14 @@ typedef struct s_data
 	pthread_t				*thrd_id;
 	unsigned long long		time_die;
 	unsigned long long		time_eat;
-	long long				time_sleep;
-	long long				start_time;
+	unsigned long long		time_sleep;
+	unsigned long long		start_time;
 	int						max_meals;
 	int						is_dead;
 	int						*forks;
 	pthread_mutex_t			*fork_mutexes;
+	pthread_mutex_t			is_dead_lock;
+	pthread_mutex_t			print_lock;
 }							t_data;
 
 //philo init funcs
@@ -81,9 +83,9 @@ int							init(int argc, char **argv, t_data *data);
 int							init_data(int argc, char **argv, t_data *data);
 int							init_philos(t_data *data);
 int							init_forks(t_data *data);
+int							case_one(t_data *data);
 int							start_philo(t_data *data);
 unsigned long long			get_time_ms(t_philo *philo);
-unsigned long long			get_time_ms_2();
 void						display_action(t_philo *philo, char *action);
 
 //philo actions
@@ -100,5 +102,6 @@ long						ft_atoi(const char *str);
 void						ft_error(char *err_msg, t_data *data);
 void						ft_clean(t_data *data);
 void						*ft_calloc(size_t nitems, size_t size);
+void	ft_usleep(unsigned long long ms);
 
 #endif

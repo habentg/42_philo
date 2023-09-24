@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:23:29 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/19 00:08:29 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/24 10:00:39 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,13 @@ void	*ft_calloc(size_t nitems, size_t size)
 		return (NULL);
 	memset(p, 0, total);
 	return (p);
+}
+
+void	ft_usleep(unsigned long long ms)
+{
+	unsigned long long	time;
+
+	time = get_time_ms(NULL);
+	while (get_time_ms(NULL) - time < ms)
+		usleep(ms / 10);
 }

@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:30:30 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/22 14:35:14 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/24 15:42:26 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	ft_clean(t_data *data)
 		pthread_mutex_destroy(data->philo->r_lock);
 	if (data->philo->l_lock)
 		pthread_mutex_destroy(data->philo->l_lock);
+	pthread_mutex_destroy(&data->is_dead_lock);
+	pthread_mutex_destroy(&data->print_lock);
 	if (data->fork_mutexes)
 		free(data->fork_mutexes);
 	if (data->forks)
@@ -42,11 +44,24 @@ void	ft_clean(t_data *data)
 
 void	check_simulation(t_data *data)
 {
+	int	i;
+
+	i = 0;
 	while (1)
 	{
+		i = -1;
 		if (data->is_dead == 1)
 		{
 			display_action(data->philo, DEAD);
+			break ;
+		}
+		else if (data->max_meals != -1)
+		{
+			while (++i < data->no_philos)
+			{
+				if (data->philo[i].no_meals != data->max_meals)
+					continue ;
+			}
 			break ;
 		}
 		display_philo(data->philo);
@@ -61,9 +76,14 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init(argc, argv, &data) != 0)
 		return (1);
-	if (start_philo(&data) != 0)
-		return (1);
-	check_simulation(&data);
+	if (data.no_philos == 1)
+		case_one(&data);
+	else
+	{
+		if (start_philo(&data) != 0)
+			return (1);
+		check_simulation(&data);
+	}
 	ft_clean(&data);
 	return (0);
 }

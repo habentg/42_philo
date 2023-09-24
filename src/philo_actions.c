@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:42:24 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/22 14:33:13 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/24 11:35:41 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	philo_take_forks(t_philo *philo)
 {
+	if (philo->no_meals == 0)
+		philo_thinks(philo);
 	while (1)
 	{
 		pthread_mutex_lock(philo->r_lock);
@@ -38,9 +40,9 @@ int	philo_eats(t_philo *philo)
 	philo->last_meal_time = get_time_ms(philo);
 	if (philo->data->max_meals != -1)
 		philo->no_meals++;
-	usleep(philo->data->time_eat * 1000);
+	ft_usleep(philo->data->time_eat);
 	pthread_mutex_lock(philo->r_lock);
-		*philo->r_fork = 0;
+	*philo->r_fork = 0;
 	pthread_mutex_unlock(philo->r_lock);
 	pthread_mutex_lock(philo->l_lock);
 	*philo->l_fork = 0;
@@ -51,13 +53,14 @@ int	philo_eats(t_philo *philo)
 int	philo_sleeps(t_philo *philo)
 {
 	display_action(philo, SLEEP);
-	usleep(philo->data->time_sleep * 1000);
+	ft_usleep(philo->data->time_sleep);
+	philo_thinks(philo);
 	return (0);
 }
 
 int	philo_thinks(t_philo *philo)
 {
-	display_action(philo, SLEEP);
-	usleep(philo->data->time_eat * 1000);
+	display_action(philo, THINK);
+	ft_usleep(philo->data->time_eat);
 	return (0);
 }
