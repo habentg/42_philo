@@ -6,83 +6,103 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:30:30 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/25 04:53:24 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/25 11:31:42 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	ft_error(char *err_msg, t_data *data)
+int	check_simulation(t_data *data)
 {
-	printf("%s\n", err_msg);
-	if (data)
-		ft_clean(data);
+	int	dead;
+
+	pthread_mutex_lock(&data->simulation_status_lock);
+	dead = data->simul_alive;
+	pthread_mutex_unlock(&data->simulation_status_lock);
+	return (dead);
 }
 
-void	ft_clean(t_data *data)
+// 1 - yes we should terminate the simulation
+int	check_num_meals(t_data *data)
 {
 	int	i;
 
 	i = -1;
 	while (++i < data->no_philos)
-		pthread_mutex_destroy(&data->fork_mutexes[i]);
-	if (data->philo->r_lock)
-		pthread_mutex_destroy(data->philo->r_lock);
-	if (data->philo->l_lock)
-		pthread_mutex_destroy(data->philo->l_lock);
-	pthread_mutex_destroy(&data->is_dead_lock);
-	pthread_mutex_destroy(&data->print_lock);
-	if (data->fork_mutexes)
-		free(data->fork_mutexes);
-	if (data->forks)
-		free(data->forks);
-	if (data->philo)
-		free(data->philo);
-	if (data->thrd_id)
-		free(data->thrd_id);
+	{
+		pthread_mutex_lock(&data->meals_lock);
+		if (data->philo[i].no_meals != data->max_meals)
+		{
+			pthread_mutex_unlock(&data->meals_lock);
+			return (0);
+		}
+		pthread_mutex_unlock(&data->meals_lock);
+	}
+	return (1);
 }
 
-void	check_simulation(t_data *data)
+// 1 - is yes, guy is dead
+int	is_philo_dead(t_philo *philo)
 {
-	int	i;
+	pthread_mutex_lock(&philo->data->is_dead_lock);
+	if ((get_time_ms(philo) - philo->last_meal_time) > \
+		philo->data->time_die)
+	{
+		pthread_mutex_lock(&philo->data->simulation_status_lock);
+		philo->data->simul_alive = 0;
+		pthread_mutex_unlock(&philo->data->simulation_status_lock);
+		pthread_mutex_unlock(&philo->data->is_dead_lock);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->data->is_dead_lock);
+	return (0);
+}
 
-	i = 0;
+// return philo_id if someone dead
+static int	run_simulation(t_data *data)
+{
+	int		i;
+
 	while (1)
 	{
 		i = -1;
-		if (data->is_dead == 1)
+		while (++i < data->no_philos)
 		{
-			display_action(data->philo, DEAD);
+			if (is_philo_dead(&data->philo[i]))
+				return (i + 1);
+		}
+		if (data->max_meals != -1 && check_num_meals(data))
+		{
+			pthread_mutex_lock(&data->simulation_status_lock);
+			data->simul_alive = 0;
+			pthread_mutex_unlock(&data->simulation_status_lock);
 			break ;
 		}
-		else if (data->max_meals != -1)
-		{
-			while (++i < data->no_philos)
-			{
-				if (data->philo[i].no_meals != data->max_meals)
-					continue ;
-			}
-			break ;
-		}
-		display_philo(data->philo);
 	}
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
+	int		id;
+	int		i;
 
+	i = -1;
+	id = 0;
 	if (check_argc(argc, argv) != 0)
 		return (1);
 	if (init(argc, argv, &data) != 0)
 		return (1);
-	if (data.no_philos == 1)
-		case_one(&data);
-	else
+	if (start_philo(&data))
+		return (1);
+	id = run_simulation(&data);
+	if (id != 0)
+		display_action(&data.philo[id - 1], DEAD);
+	while (++i < data.no_philos)
 	{
-		if (start_philo(&data) != 0)
-			return (1);
-		check_simulation(&data);
+		if (pthread_join(data.thrd_id[i], NULL) != 0)
+			return (ft_error(JOIN_TH_FAIL, &data), 1);
 	}
 	ft_clean(&data);
 	return (0);

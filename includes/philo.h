@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:11:12 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/24 16:28:49 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/25 09:45:07 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 
 // input error message defs
 # define INVALID_PARAMS "ERROR: Invalid number of parameters"
-# define INVALID_INPUT "ERROR: Invalid Input -> only counting numbers\nPhilo input format: \
-    ./philo {No of philos} {time to die} {time to sleep} {no of meals (opt)}"
-# define INVALID_PHILO_INPUT "ERROR: Put at least one guy in there lmao"
+# define INVALID_INPUT "ERROR: Invalid Input -> only counting numbers\nPhilo input format:"\
+    " ./philo {No of philos} {time to die} {time to sleep} {no of meals (opt)}"
+# define INVALID_PHILO_INPUT "ERROR: Put at least one Philo"
 
 // alocation erorrs
 # define FORK_ALLOC_FAIL "ERROR: Fork memory allocation failed!"
@@ -71,11 +71,13 @@ typedef struct s_data
 	unsigned long long		time_sleep;
 	unsigned long long		start_time;
 	int						max_meals;
-	int						is_dead;
+	int						simul_alive;
 	int						*forks;
 	pthread_mutex_t			*fork_mutexes;
 	pthread_mutex_t			is_dead_lock;
 	pthread_mutex_t			print_lock;
+	pthread_mutex_t			simulation_status_lock;
+	pthread_mutex_t			meals_lock;
 }							t_data;
 
 //philo init funcs
@@ -90,7 +92,7 @@ void						display_action(t_philo *philo, char *action);
 
 //philo actions
 void						*display_philo(void *philo_ptr);
-int							is_philo_dead(t_philo *philo);
+int							check_simulation(t_data *data);
 int							philo_take_forks(t_philo *philo);
 int							philo_eats(t_philo *philo);
 int							philo_sleeps(t_philo *philo);
@@ -99,8 +101,8 @@ int							philo_thinks(t_philo *philo);
 // error, clean and other helper funcs funcs
 int							check_argc(int argc, char **argv);
 long						ft_atoi(const char *str);
-void						ft_error(char *err_msg, t_data *data);
-void						ft_clean(t_data *data);
+void	ft_error(char *err_msg, t_data *data);
+void	ft_clean(t_data *data);
 void						*ft_calloc(size_t nitems, size_t size);
 void						ft_usleep(unsigned long long ms);
 
