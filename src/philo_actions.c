@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:42:24 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/25 15:42:16 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:19:42 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	philo_take_forks(t_philo *philo)
 			break ;
 		pthread_mutex_unlock(philo->r_lock);
 		pthread_mutex_unlock(philo->l_lock);
+		usleep(10);
 	}
 	*philo->r_fork = 1;
 	pthread_mutex_unlock(philo->r_lock);
@@ -43,17 +44,16 @@ int	philo_eats(t_philo *philo)
 	if (philo->data->max_meals != -1)
 		philo->no_meals++;
 	pthread_mutex_unlock(&philo->data->meals_lock);
-	pthread_mutex_lock(&philo->data->is_dead_lock);
 	ft_usleep(philo->data->time_eat);
 	philo->last_meal_time = get_time_ms(philo);
-	pthread_mutex_unlock(&philo->data->is_dead_lock);
 	pthread_mutex_lock(philo->r_lock);
 	*philo->r_fork = 0;
 	pthread_mutex_unlock(philo->r_lock);
+	display_action(philo, "DROPPED THE FORKS ---->Right");
 	pthread_mutex_lock(philo->l_lock);
 	*philo->l_fork = 0;
 	pthread_mutex_unlock(philo->l_lock);
-	display_action(philo, "DROPED FORKS!!!!!!!!!!!!!");
+	display_action(philo, "DROPPED THE FORKS ---->Left");
 	return (0);
 }
 
@@ -71,6 +71,6 @@ int	philo_thinks(t_philo *philo)
 	if (!check_simulation(philo->data))
 		return (1);
 	display_action(philo, THINK);
-	ft_usleep(50);
+	// ft_usleep(50);
 	return (0);
 }
