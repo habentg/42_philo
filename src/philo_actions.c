@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:42:24 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/24 11:35:41 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/25 05:10:06 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	philo_take_forks(t_philo *philo)
 {
-	if (philo->no_meals == 0)
-		philo_thinks(philo);
 	while (1)
 	{
 		pthread_mutex_lock(philo->r_lock);

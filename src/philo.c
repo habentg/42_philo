@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:25:32 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/24 10:12:11 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/25 05:01:37 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 void	*display_philo(void *philo_ptr)
 {
 	t_philo	*philo;
+	t_data	*data;
 
 	philo = (t_philo *)philo_ptr;
-	while (1)
+	data = philo->data;
+	while (data->is_dead == 0)
 	{
 		if (is_philo_dead(philo) == 1)
 			break ;
