@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:37:47 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/25 09:47:17 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:47:27 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	init_philos(t_data *data)
 		data->philo[i].l_lock = &data->fork_mutexes[(data->philo[i].philo_id) \
 			% data->no_philos];
 		data->philo[i].no_meals = 0;
-		data->philo[i].last_meal_time = get_time_ms(data->philo);
+		data->philo[i].last_meal_time = get_time_ms();
 	}
 	pthread_mutex_init(data->philo->r_lock, NULL);
 	pthread_mutex_init(data->philo->l_lock, NULL);

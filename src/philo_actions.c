@@ -6,71 +6,59 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:42:24 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/25 17:19:42 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:21:02 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+// 1 -  philo took forks from both sides
 int	philo_take_forks(t_philo *philo)
 {
+	t_data	*data;
+
+	data = philo->data;
 	while (1)
 	{
-		if (!check_simulation(philo->data))
-			return (1);
-		pthread_mutex_lock(philo->r_lock);
-		pthread_mutex_lock(philo->l_lock);
-		if ((*philo->r_fork == 0) && (*philo->l_fork == 0))
+		if (!check_simulation(data))
+			return (0);
+		if (take_forks(philo))
 			break ;
-		pthread_mutex_unlock(philo->r_lock);
-		pthread_mutex_unlock(philo->l_lock);
-		usleep(10);
+		usleep(100);
 	}
-	*philo->r_fork = 1;
-	pthread_mutex_unlock(philo->r_lock);
-	display_action(philo, R_FORK_TAKEN);
-	*philo->l_fork = 1;
-	pthread_mutex_unlock(philo->l_lock);
-	display_action(philo, L_FORK_TAKEN);
-	return (0);
+	return (1);
 }
 
 int	philo_eats(t_philo *philo)
 {
 	if (!check_simulation(philo->data))
-		return (1);
+		return (0);
 	display_action(philo, EAT);
+	ft_usleep(philo->data->time_eat);
+	philo->last_meal_time = get_time_ms();
 	pthread_mutex_lock(&philo->data->meals_lock);
 	if (philo->data->max_meals != -1)
 		philo->no_meals++;
 	pthread_mutex_unlock(&philo->data->meals_lock);
-	ft_usleep(philo->data->time_eat);
-	philo->last_meal_time = get_time_ms(philo);
-	pthread_mutex_lock(philo->r_lock);
-	*philo->r_fork = 0;
-	pthread_mutex_unlock(philo->r_lock);
-	display_action(philo, "DROPPED THE FORKS ---->Right");
-	pthread_mutex_lock(philo->l_lock);
-	*philo->l_fork = 0;
-	pthread_mutex_unlock(philo->l_lock);
-	display_action(philo, "DROPPED THE FORKS ---->Left");
-	return (0);
+	drop_fork(philo, 'r');
+	drop_fork(philo, 'l');
+	return (1);
 }
 
 int	philo_sleeps(t_philo *philo)
 {
 	if (!check_simulation(philo->data))
-		return (1);
+		return (0);
 	display_action(philo, SLEEP);
 	ft_usleep(philo->data->time_sleep);
-	return (0);
+	return (1);
 }
 
 int	philo_thinks(t_philo *philo)
 {
 	if (!check_simulation(philo->data))
-		return (1);
+		return (0);
 	display_action(philo, THINK);
-	// ft_usleep(50);
-	return (0);
+	usleep(100);
+	return (1);
 }
