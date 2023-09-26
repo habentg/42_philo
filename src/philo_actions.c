@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:42:24 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/26 20:22:35 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/27 01:23:03 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	philo_take_forks(t_philo *philo)
 			return (0);
 		if (take_forks(philo))
 			break ;
-		usleep(100);
+		usleep(10);
 	}
 	return (1);
 }
@@ -34,8 +34,10 @@ int	philo_eats(t_philo *philo)
 	if (!check_simulation(philo->data))
 		return (0);
 	display_action(philo, EAT);
-	philo->last_meal_time = get_time_ms();
 	ft_usleep(philo->data->time_eat);
+	pthread_mutex_lock(&philo->data->m_lock);
+	philo->last_meal_time = get_time_ms();
+	pthread_mutex_unlock(&philo->data->m_lock);
 	pthread_mutex_lock(&philo->data->meals_lock);
 	if (philo->data->max_meals != -1)
 		philo->no_meals++;
@@ -59,6 +61,6 @@ int	philo_thinks(t_philo *philo)
 	if (!check_simulation(philo->data))
 		return (0);
 	display_action(philo, THINK);
-	usleep(100);
+	usleep(10);
 	return (1);
 }

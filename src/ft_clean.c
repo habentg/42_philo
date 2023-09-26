@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 06:54:51 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/26 20:22:24 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/27 01:17:49 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,14 @@ void	ft_clean(t_data *data)
 
 	i = -1;
 	while (++i < data->no_philos)
+	{
 		pthread_mutex_destroy(&data->fork_mutexes[i]);
-	if (data->philo->r_lock)
-		pthread_mutex_destroy(data->philo->r_lock);
-	if (data->philo->l_lock)
-		pthread_mutex_destroy(data->philo->l_lock);
+	}
 	pthread_mutex_destroy(&data->is_dead_lock);
 	pthread_mutex_destroy(&data->print_lock);
 	pthread_mutex_destroy(&data->simulation_status_lock);
 	pthread_mutex_destroy(&data->meals_lock);
+	pthread_mutex_destroy(&data->m_lock);
 	if (data->fork_mutexes)
 		free(data->fork_mutexes);
 	if (data->forks)

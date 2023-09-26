@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:30:30 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/26 20:22:31 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/27 01:18:50 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,16 @@ int	check_num_meals(t_data *data)
 // 1 - is yes, guy is dead
 int	is_philo_dead(t_philo *philo)
 {
-	if ((get_time_ms() - philo->last_meal_time) > \
-		philo->data->time_die)
+	pthread_mutex_lock(&philo->data->m_lock);
+	if ((get_time_ms() - philo->last_meal_time) > philo->data->time_die)
 	{
 		pthread_mutex_lock(&philo->data->simulation_status_lock);
 		philo->data->simul_alive = 0;
 		pthread_mutex_unlock(&philo->data->simulation_status_lock);
+		pthread_mutex_unlock(&philo->data->m_lock);
 		return (1);
 	}
+	pthread_mutex_unlock(&philo->data->m_lock);
 	return (0);
 }
 
@@ -64,8 +66,10 @@ static int	run_simulation(t_data *data)
 	{
 		i = -1;
 		while (++i < data->no_philos)
+		{
 			if (is_philo_dead(&data->philo[i]))
 				return (i + 1);
+		}
 		if (data->max_meals != -1 && check_num_meals(data))
 		{
 			pthread_mutex_lock(&data->simulation_status_lock);

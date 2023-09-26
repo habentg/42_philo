@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 13:34:06 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/26 20:22:21 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/27 01:27:34 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,24 @@ void	drop_fork(t_philo *philo, char r_or_l)
 // 1 - successfully taken both forks
 int	take_forks(t_philo *philo)
 {
-	if (philo->philo_id % 2 == 0)
-	{
-		if (!take_fork(philo, 'r'))
-			return (0);
-		if (!take_fork(philo, 'l'))
-			return (drop_fork(philo, 'r'), 0);
-	}
-	else
-	{
-		if (!take_fork(philo, 'l'))
-			return (0);
-		if (!take_fork(philo, 'r'))
-			return (drop_fork(philo, 'l'), 0);
-	}
-	// if (!take_fork(philo, 'l'))
-	// 	return (0);
-	// if (!take_fork(philo, 'r'))
-	// 	return (drop_fork(philo, 'l'), 0);
+	// if (philo->philo_id % 2 == 0)
+	// {
+	// 	if (!take_fork(philo, 'r'))
+	// 		return (0);
+	// 	if (!take_fork(philo, 'l'))
+	// 		return (drop_fork(philo, 'r'), 0);
+	// }
+	// else
+	// {
+	// 	if (!take_fork(philo, 'l'))
+	// 		return (0);
+	// 	if (!take_fork(philo, 'r'))
+	// 		return (drop_fork(philo, 'l'), 0);
+	// }
+	if (!take_fork(philo, 'l'))
+		return (0);
+	if (!take_fork(philo, 'r'))
+		return (drop_fork(philo, 'l'), 0);
 	display_action(philo, R_FORK_TAKEN);
 	display_action(philo, L_FORK_TAKEN);
 	return (1);

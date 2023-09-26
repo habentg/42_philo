@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:11:12 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/26 20:22:02 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/27 01:17:38 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,16 @@
 # include <string.h>
 
 // input error message defs
-# define INVALID_PARAMS "🏆🤩  ERROR: Invalid number of parameters"
-# define INVALID_INPUT "🏆🤩  ERROR: Invalid Input -> only counting numbers Philo input format: ./philo {No of philos} {time to die} {time to sleep} {no of meals (opt)}"
-# define INVALID_PHILO_INPUT "🏆🤩 ERROR: No of Philos should be b/n 0 & 200(inc)"
-# define INVALID_MS_INPUT "🏆🤩 ERROR: Invalid time to eat/sleep.\nShould be >= 60"
+# define INVALID_PARAMS "😂😂😂 ERROR: Invalid number of parameters"
+# define INVALID_PHILO_INPUT "😂😂 ERROR: No of Philos should be b/n 0 & 200(inc)"
+# define INVALID_MS_INPUT "😂😂 ERROR: Invalid time to eat/sleep.\nShould be >= 60"
 
 // alocation erorrs
-# define FORK_ALLOC_FAIL "🏆🤩  ERROR: Fork memory allocation failed!"
-# define THREAD_ALLOC_FAIL "🏆🤩  ERROR: Thread memory allocation failed!"
-# define PHILO_ALLOC_FAIL "🏆🤩  ERROR: Philo memory allocation failed!"
-# define CREATE_TH_FAIL "🏆🤩 ERROR: Thread creation failed!"
-# define JOIN_TH_FAIL "🏆🤩  ERROR: Join thread failed!"
+# define FORK_ALLOC_FAIL "😂😂😂 ERROR: Fork memory allocation failed!"
+# define THREAD_ALLOC_FAIL "😂😂😂 ERROR: Thread memory allocation failed!"
+# define PHILO_ALLOC_FAIL "😂😂😂 ERROR: Philo memory allocation failed!"
+# define CREATE_TH_FAIL "😂😂😂 ERROR: Thread creation failed!"
+# define JOIN_TH_FAIL "😂😂😂 ERROR: Join thread failed!"
 
 // helper func errors
 # define GET_TIME_ERROR "🏆🤩  ERROR: gettimeofday error!"
@@ -66,8 +65,8 @@ typedef struct s_data
 	int						no_philos;
 	struct s_philo			*philo;
 	pthread_t				*thrd_id;
-	unsigned long long		time_die;
 	unsigned long long		time_eat;
+	unsigned long long		time_die;
 	unsigned long long		time_sleep;
 	unsigned long long		start_time;
 	int						max_meals;
@@ -78,6 +77,7 @@ typedef struct s_data
 	pthread_mutex_t			print_lock;
 	pthread_mutex_t			simulation_status_lock;
 	pthread_mutex_t			meals_lock;
+	pthread_mutex_t			m_lock;
 }							t_data;
 
 //philo init funcs
@@ -101,6 +101,7 @@ int							philo_sleeps(t_philo *philo);
 int							philo_thinks(t_philo *philo);
 
 // error, clean and other helper funcs funcs
+void						print_instruction(void);
 int							check_argc(int argc, char **argv);
 long						ft_atoi(const char *str);
 void						ft_error(char *err_msg, t_data *data);

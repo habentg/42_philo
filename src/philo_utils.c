@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 03:57:43 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/26 20:22:39 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/27 01:19:15 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,8 @@ unsigned long long	get_time_ms(void)
 
 void	display_action(t_philo *philo, char *action)
 {
-	unsigned long long	c_time;
-	unsigned long long	s_time;
-
 	pthread_mutex_lock(&philo->data->print_lock);
-	c_time = get_time_ms();
-	s_time = philo->data->start_time;
-	printf("%lld %d %s\n", (c_time - s_time), philo->philo_id, action);
+	printf("%lld %d %s\n", get_time_ms() - \
+		philo->data->start_time, philo->philo_id, action);
 	pthread_mutex_unlock(&philo->data->print_lock);
 }

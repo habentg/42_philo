@@ -6,7 +6,7 @@
 #    By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/14 10:12:00 by hatesfam          #+#    #+#              #
-#    Updated: 2023/09/26 20:23:02 by hatesfam         ###   ########.fr        #
+#    Updated: 2023/09/26 23:30:27 by hatesfam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 NAME = philo
 
 CC = cc
-CFLAG = -Wall -Wextra -Werror
+CFLAG = -Wall -Wextra -Werror -g3
 LINKER = -pthread
 RM = rm -rf
 

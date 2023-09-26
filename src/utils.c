@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:23:29 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/26 20:22:50 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/26 22:13:34 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ long	ft_atoi(const char *str)
 			return (-1);
 		number = (number * 10) + (str[i] - '0');
 		if (number > INT_MAX || number < INT_MIN)
-			return (ft_error(INVALID_INPUT, NULL), -1);
+			return (print_instruction(), -1);
 		i++;
 	}
 	return (number);
@@ -57,4 +57,13 @@ void	ft_usleep(unsigned long long duration)
 	time = get_time_ms();
 	while (get_time_ms() - time < duration)
 		usleep(duration / 10);
+}
+
+void	print_instruction(void)
+{
+	printf("%s\n", "😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂");
+	printf("%s\n", "ERROR: Invalid Input -> only counting numbers");
+	printf("%s\n", "Philo input format:");
+	printf("%s\n", "✅ ./philo {No of philos} {time to die} {time to sleep} "\
+		"{no of meals (opt)}");
 }

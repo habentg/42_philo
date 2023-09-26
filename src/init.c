@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:37:47 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/26 20:22:27 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/27 01:17:57 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	init_data(int argc, char **argv, t_data *data)
 	pthread_mutex_init(&data->is_dead_lock, NULL);
 	pthread_mutex_init(&data->meals_lock, NULL);
 	pthread_mutex_init(&data->simulation_status_lock, NULL);
+	pthread_mutex_init(&data->m_lock, NULL);
 	return (0);
 }
 
