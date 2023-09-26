@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:25:32 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/26 17:20:40 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/26 20:25:05 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 void	*display_philo(void *philo_ptr)
 {
 	t_philo	*philo;
-	t_data	*data;
 
 	philo = (t_philo *)philo_ptr;
-	data = philo->data;
-	if (philo->data->no_philos % 2 == 0)
+	if (philo->philo_id % 2 == 0)
 		philo_thinks(philo);
-	while (check_simulation(data))
+	while (check_simulation(philo->data))
 	{
 		if (!philo_take_forks(philo))
 			return (0);

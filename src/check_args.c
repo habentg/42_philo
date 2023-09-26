@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:12:14 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/25 09:42:21 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/26 20:22:15 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ int	check_argc(int argc, char **argv)
 		if (ft_atoi(argv[i]) == -1)
 			return (ft_error(INVALID_INPUT, NULL), 2);
 	}
-	if (ft_atoi(argv[1]) <= 0)
+	if (ft_atoi(argv[1]) <= 0 || ft_atoi(argv[1]) > 200)
 		return (ft_error(INVALID_PHILO_INPUT, NULL), 1);
+	if (ft_atoi(argv[3]) < 60 || ft_atoi(argv[4]) < 60)
+		return (ft_error(INVALID_MS_INPUT, NULL), 1);
 	return (0);
 }

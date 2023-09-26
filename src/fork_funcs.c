@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   take_forks.c                                       :+:      :+:    :+:   */
+/*   fork_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 13:34:06 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/26 16:58:40 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/26 20:22:21 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
 // 1 - fork taken successfully 
-int	take_fork(t_philo *philo, char r_or_l)
+static int	take_fork(t_philo *philo, char r_or_l)
 {
 	if (r_or_l == 'r')
 	{
@@ -53,7 +53,7 @@ void	drop_fork(t_philo *philo, char r_or_l)
 // 1 - successfully taken both forks
 int	take_forks(t_philo *philo)
 {
-	if (philo->data->no_philos % 2 == 0)
+	if (philo->philo_id % 2 == 0)
 	{
 		if (!take_fork(philo, 'r'))
 			return (0);
@@ -67,6 +67,10 @@ int	take_forks(t_philo *philo)
 		if (!take_fork(philo, 'r'))
 			return (drop_fork(philo, 'l'), 0);
 	}
+	// if (!take_fork(philo, 'l'))
+	// 	return (0);
+	// if (!take_fork(philo, 'r'))
+	// 	return (drop_fork(philo, 'l'), 0);
 	display_action(philo, R_FORK_TAKEN);
 	display_action(philo, L_FORK_TAKEN);
 	return (1);

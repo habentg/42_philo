@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:11:12 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/26 15:12:35 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/26 20:22:02 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,20 @@
 # include <string.h>
 
 // input error message defs
-# define INVALID_PARAMS "ERROR: Invalid number of parameters"
-# define INVALID_INPUT "ERROR: Invalid Input -> only counting numbers Philo input format:"\
-	" ./philo {No of philos} {time to die} {time to sleep} {no of meals (opt)}"
-# define INVALID_PHILO_INPUT "ERROR: Put at least one Philo"
+# define INVALID_PARAMS "🏆🤩  ERROR: Invalid number of parameters"
+# define INVALID_INPUT "🏆🤩  ERROR: Invalid Input -> only counting numbers Philo input format: ./philo {No of philos} {time to die} {time to sleep} {no of meals (opt)}"
+# define INVALID_PHILO_INPUT "🏆🤩 ERROR: No of Philos should be b/n 0 & 200(inc)"
+# define INVALID_MS_INPUT "🏆🤩 ERROR: Invalid time to eat/sleep.\nShould be >= 60"
 
 // alocation erorrs
-# define FORK_ALLOC_FAIL "ERROR: Fork memory allocation failed!"
-# define THREAD_ALLOC_FAIL "ERROR: Thread memory allocation failed!"
-# define PHILO_ALLOC_FAIL "ERROR: Philo memory allocation failed!"
-# define CREATE_TH_FAIL "ERROR: Thread creation failed!"
-# define JOIN_TH_FAIL "ERROR: Join thread failed!"
+# define FORK_ALLOC_FAIL "🏆🤩  ERROR: Fork memory allocation failed!"
+# define THREAD_ALLOC_FAIL "🏆🤩  ERROR: Thread memory allocation failed!"
+# define PHILO_ALLOC_FAIL "🏆🤩  ERROR: Philo memory allocation failed!"
+# define CREATE_TH_FAIL "🏆🤩 ERROR: Thread creation failed!"
+# define JOIN_TH_FAIL "🏆🤩  ERROR: Join thread failed!"
 
 // helper func errors
-# define GET_TIME_ERROR "ERROR: gettimeofday error!"
+# define GET_TIME_ERROR "🏆🤩  ERROR: gettimeofday error!"
 
 // actions
 # define R_FORK_TAKEN "taken right fork"
@@ -86,7 +86,7 @@ int							init_data(int argc, char **argv, t_data *data);
 int							init_philos(t_data *data);
 int							init_forks(t_data *data);
 int							case_one(t_data *data);
-void							start_philo(t_data *data);
+void						start_philo(t_data *data);
 unsigned long long			get_time_ms(void);
 void						display_action(t_philo *philo, char *action);
 
@@ -94,8 +94,8 @@ void						display_action(t_philo *philo, char *action);
 void						*display_philo(void *philo_ptr);
 int							check_simulation(t_data *data);
 int							philo_take_forks(t_philo *philo);
-int	take_forks(t_philo *philo);
-void	drop_fork(t_philo *philo, char r_or_l);
+int							take_forks(t_philo *philo);
+void						drop_fork(t_philo *philo, char r_or_l);
 int							philo_eats(t_philo *philo);
 int							philo_sleeps(t_philo *philo);
 int							philo_thinks(t_philo *philo);
@@ -103,8 +103,8 @@ int							philo_thinks(t_philo *philo);
 // error, clean and other helper funcs funcs
 int							check_argc(int argc, char **argv);
 long						ft_atoi(const char *str);
-void	ft_error(char *err_msg, t_data *data);
-void	ft_clean(t_data *data);
+void						ft_error(char *err_msg, t_data *data);
+void						ft_clean(t_data *data);
 void						*ft_calloc(size_t nitems, size_t size);
 void						ft_usleep(unsigned long long ms);
 
