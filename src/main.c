@@ -6,23 +6,23 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:30:30 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/27 01:18:50 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/27 09:30:33 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
+// just retrives the availability of our simulaiton (1 -> alive, 0 -> not)
 int	check_simulation(t_data *data)
 {
-	int	dead;
+	int	still_alive;
 
 	pthread_mutex_lock(&data->simulation_status_lock);
-	dead = data->simul_alive;
+	still_alive = data->simul_alive;
 	pthread_mutex_unlock(&data->simulation_status_lock);
-	return (dead);
+	return (still_alive);
 }
 
-// 1 - yes we should terminate the simulation
+// 1 -> max num of meals reached - terminate the simulation
 int	check_num_meals(t_data *data)
 {
 	int	i;
@@ -41,7 +41,7 @@ int	check_num_meals(t_data *data)
 	return (1);
 }
 
-// 1 - is yes, guy is dead
+// return 1 -> dude is dead RIP!🎖️🎖️🎖️
 int	is_philo_dead(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->m_lock);
@@ -57,7 +57,8 @@ int	is_philo_dead(t_philo *philo)
 	return (0);
 }
 
-// return philo_id if someone dead
+// return - philo_id is needed for printing our who died 🎖️🎖️🎖️
+// break - we just terminate the loop coz max num of meals is reached
 static int	run_simulation(t_data *data)
 {
 	int		i;
@@ -68,7 +69,7 @@ static int	run_simulation(t_data *data)
 		while (++i < data->no_philos)
 		{
 			if (is_philo_dead(&data->philo[i]))
-				return (i + 1);
+				return (i);
 		}
 		if (data->max_meals != -1 && check_num_meals(data))
 		{
@@ -81,6 +82,13 @@ static int	run_simulation(t_data *data)
 	return (0);
 }
 
+/*point of entry to our philo*/
+/*sanitize input*/
+/*initialize our data structures*/
+/*officially start our simulation -> create threads and watch*/
+/*monitor our simulation -> till someone dies or they are full*/
+/*set up our main process to <wait> untill our simulation is done*/
+/*clean up our resources before we exit for good*/
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -88,17 +96,17 @@ int	main(int argc, char **argv)
 	int		i;
 
 	i = -1;
-	id = 0;
+	id = -1;
 	if (check_argc(argc, argv) != 0)
 		return (1);
 	if (init(argc, argv, &data) != 0)
 		return (1);
 	start_philo(&data);
 	id = run_simulation(&data);
-	if (id != 0)
-		display_action(&data.philo[id - 1], DEAD);
+	if (id != -1)
+		display_action(&data.philo[id], DEAD);
 	while (++i < data.no_philos)
-		if (pthread_join(data.thrd_id[i], NULL) != 0)
+		if (pthread_join(data.thrd_id[i], 0) != 0)
 			return (ft_error(JOIN_TH_FAIL, &data), 1);
 	ft_clean(&data);
 	return (0);

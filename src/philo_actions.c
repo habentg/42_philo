@@ -6,13 +6,14 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:42:24 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/27 01:23:03 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/27 09:37:20 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-// 1 -  philo took forks from both sides
+/*check if the simulation is still alive*/
+/*1 -  philo took forks from both sides, or wiat till then
+	// dont comeback empty handed*/
 int	philo_take_forks(t_philo *philo)
 {
 	t_data	*data;
@@ -29,15 +30,17 @@ int	philo_take_forks(t_philo *philo)
 	return (1);
 }
 
+/*check if the simulation is still alive*/
+/*Eat for a period of time, update last-eat-time, drop the forks*/
 int	philo_eats(t_philo *philo)
 {
 	if (!check_simulation(philo->data))
 		return (0);
 	display_action(philo, EAT);
-	ft_usleep(philo->data->time_eat);
 	pthread_mutex_lock(&philo->data->m_lock);
 	philo->last_meal_time = get_time_ms();
 	pthread_mutex_unlock(&philo->data->m_lock);
+	ft_usleep(philo->data->time_eat);
 	pthread_mutex_lock(&philo->data->meals_lock);
 	if (philo->data->max_meals != -1)
 		philo->no_meals++;
@@ -47,6 +50,7 @@ int	philo_eats(t_philo *philo)
 	return (1);
 }
 
+// rest -> 😴😴😴😴😴😴
 int	philo_sleeps(t_philo *philo)
 {
 	if (!check_simulation(philo->data))
@@ -56,6 +60,7 @@ int	philo_sleeps(t_philo *philo)
 	return (1);
 }
 
+// let bro think -> he a thinker 🤔🤔🤔
 int	philo_thinks(t_philo *philo)
 {
 	if (!check_simulation(philo->data))

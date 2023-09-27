@@ -6,12 +6,12 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:23:29 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/26 22:13:34 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/27 09:45:56 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
+// the OG function from pecine
 long	ft_atoi(const char *str)
 {
 	long	i;
@@ -35,6 +35,7 @@ long	ft_atoi(const char *str)
 	return (number);
 }
 
+// malloc + 0 init instead of garbage value
 void	*ft_calloc(size_t nitems, size_t size)
 {
 	void	*p;
@@ -42,14 +43,16 @@ void	*ft_calloc(size_t nitems, size_t size)
 
 	total = nitems * size;
 	if (total >= SIZE_MAX || size >= SIZE_MAX)
-		return (NULL);
+		return (0);
 	p = malloc(total);
 	if (!p)
-		return (NULL);
+		return (0);
 	memset(p, 0, total);
 	return (p);
 }
 
+// more accurate usleep + accepts milliseconds
+/*bc using usleep == usleep(duration) + some small delays (it adds up)*/
 void	ft_usleep(unsigned long long duration)
 {
 	unsigned long long	time;
@@ -59,6 +62,7 @@ void	ft_usleep(unsigned long long duration)
 		usleep(duration / 10);
 }
 
+// just instructions on the format of the input.
 void	print_instruction(void)
 {
 	printf("%s\n", "😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂");

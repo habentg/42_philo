@@ -6,7 +6,7 @@
 #    By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/14 10:12:00 by hatesfam          #+#    #+#              #
-#    Updated: 2023/09/26 23:30:27 by hatesfam         ###   ########.fr        #
+#    Updated: 2023/09/27 08:52:48 by hatesfam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,11 @@ NAME = philo
 CC = cc
 CFLAG = -Wall -Wextra -Werror -g3
 LINKER = -pthread
+CFLAG = -Wall -Wextra -Werror -g3
 RM = rm -rf
 
 SRC_FILES =  src/main.c src/check_args.c src/utils.c src/init.c src/case_one.c\
-			 src/philo.c src/philo_actions.c src/philo_utils.c src/ft_clean.c src/fork_funcs.c
+			 src/routine.c src/philo_actions.c src/philo_utils.c src/ft_clean.c src/fork_funcs.c
 OBJ_FILES = ${SRC_FILES:.c=.o}
 
 %.o : %.c

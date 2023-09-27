@@ -6,39 +6,40 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 08:56:28 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/26 20:22:12 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/27 09:02:37 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
+/*takes the fork -> waits time to dead+ -> drops fork and DIE*/
 void	*one_philo(void *philo_ptr)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)philo_ptr;
-	*philo->r_fork = 1;
-	display_action(philo, "has taken a fork");
+	while (!take_fork(philo, 'l'))
+		usleep(100);
+	display_action(philo, "taken a fork");
 	ft_usleep(philo->data->time_die + 1);
-	*philo->r_fork = 0;
+	drop_fork(philo, 'l');
 	return (0);
 }
 
-int	case_one(t_data *data)
+// Initialize only one fork, mutex lock and one thread
+void	case_one(t_data *data)
 {
 	data->start_time = get_time_ms();
 	data->philo[0].philo_id = 1;
 	data->philo[0].data = data;
-	data->philo[0].r_fork = &(data->forks[0]);
-	data->philo[0].l_fork = NULL;
-	data->philo[0].r_lock = &data->fork_mutexes[0];
-	data->philo[0].l_lock = NULL;
+	data->philo[0].l_fork = &(data->forks[0]);
+	data->philo[0].r_fork = 0;
+	data->philo[0].l_lock = &data->fork_mutexes[0];
+	data->philo[0].r_lock = 0;
 	data->philo[0].no_meals = 0;
+	pthread_mutex_lock(&data->meals_lock);
 	data->philo[0].last_meal_time = get_time_ms();
-	if (pthread_create(&data->thrd_id[0], NULL, &one_philo, \
+	pthread_mutex_unlock(&data->meals_lock);
+	if (pthread_create(&data->thrd_id[0], 0, &one_philo, \
 		&data->philo[0]) != 0)
-		return (ft_error(CREATE_TH_FAIL, data), 1);
-	if (pthread_join(data->thrd_id[0], NULL) != 0)
-		return (ft_error(JOIN_TH_FAIL, data), 1);
-	return (0);
+		ft_error(CREATE_TH_FAIL, data);
 }

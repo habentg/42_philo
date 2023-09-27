@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:11:12 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/27 01:17:38 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/27 09:46:45 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@
 # include <string.h>
 
 // input error message defs
-# define INVALID_PARAMS "😂😂😂 ERROR: Invalid number of parameters"
-# define INVALID_PHILO_INPUT "😂😂 ERROR: No of Philos should be b/n 0 & 200(inc)"
-# define INVALID_MS_INPUT "😂😂 ERROR: Invalid time to eat/sleep.\nShould be >= 60"
+# define INVALID_PARAMS "\n😂😂 ERROR: Invalid number of parameters\n"
+# define INVALID_PHILO_INPUT "\n😂😂 ERROR: No of Philos should be b/n 0 & 200\n"
+# define INVALID_MS_INPUT "\n😂😂 ERROR: time to die/eat/sleep Should be >= 60\n"
 
 // alocation erorrs
-# define FORK_ALLOC_FAIL "😂😂😂 ERROR: Fork memory allocation failed!"
-# define THREAD_ALLOC_FAIL "😂😂😂 ERROR: Thread memory allocation failed!"
-# define PHILO_ALLOC_FAIL "😂😂😂 ERROR: Philo memory allocation failed!"
-# define CREATE_TH_FAIL "😂😂😂 ERROR: Thread creation failed!"
-# define JOIN_TH_FAIL "😂😂😂 ERROR: Join thread failed!"
+# define FORK_ALLOC_FAIL "\n😂😂😂 ERROR: Fork memory allocation failed!\n"
+# define THREAD_ALLOC_FAIL "\n😂😂😂 ERROR: Thread memory allocation failed!\n"
+# define PHILO_ALLOC_FAIL "\n😂😂😂 ERROR: Philo memory allocation failed!\n"
+# define CREATE_TH_FAIL "\n😂😂😂 ERROR: Thread creation failed!\n"
+# define JOIN_TH_FAIL "\n😂😂😂 ERROR: Join thread failed!\n"
 
 // helper func errors
-# define GET_TIME_ERROR "🏆🤩  ERROR: gettimeofday error!"
+# define GET_TIME_ERROR "\n🏆🤩  ERROR: gettimeofday error!\n"
 
 // actions
 # define R_FORK_TAKEN "taken right fork"
@@ -85,7 +85,7 @@ int							init(int argc, char **argv, t_data *data);
 int							init_data(int argc, char **argv, t_data *data);
 int							init_philos(t_data *data);
 int							init_forks(t_data *data);
-int							case_one(t_data *data);
+void						case_one(t_data *data);
 void						start_philo(t_data *data);
 unsigned long long			get_time_ms(void);
 void						display_action(t_philo *philo, char *action);
@@ -95,6 +95,7 @@ void						*display_philo(void *philo_ptr);
 int							check_simulation(t_data *data);
 int							philo_take_forks(t_philo *philo);
 int							take_forks(t_philo *philo);
+int							take_fork(t_philo *philo, char r_or_l);
 void						drop_fork(t_philo *philo, char r_or_l);
 int							philo_eats(t_philo *philo);
 int							philo_sleeps(t_philo *philo);

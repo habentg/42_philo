@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:25:32 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/27 01:31:30 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/27 09:39:07 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-void	*display_philo(void *philo_ptr)
+// breaks out of the loop only if the simulation stops;
+// its checked inside each action
+void	*routine(void *philo_ptr)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)philo_ptr;
 	if (philo->philo_id % 2 == 0)
 		philo_thinks(philo);
-	while (check_simulation(philo->data))
+	while (1)
 	{
 		if (!philo_take_forks(philo))
-			return (0);
+			break ;
 		if (!philo_eats(philo))
 			break ;
 		if (!philo_sleeps(philo))
@@ -33,6 +34,8 @@ void	*display_philo(void *philo_ptr)
 	return (0);
 }
 
+// 1 philo is handled separately
+// created that many threads
 void	start_philo(t_data *data)
 {
 	int	i;
@@ -41,10 +44,9 @@ void	start_philo(t_data *data)
 	data->start_time = get_time_ms();
 	if (data->no_philos == 1)
 		case_one(data);
-	while (++i < data->no_philos)
-	{
-		if (pthread_create(&data->thrd_id[i], NULL, &display_philo, \
-			&data->philo[i]) != 0)
-			ft_error(CREATE_TH_FAIL, data);
-	}
+	else
+		while (++i < data->no_philos)
+			if (pthread_create(&data->thrd_id[i], 0, &routine, \
+				&data->philo[i]) != 0)
+				ft_error(CREATE_TH_FAIL, data);
 }

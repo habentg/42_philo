@@ -6,12 +6,12 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:37:47 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/27 01:17:57 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/27 09:15:54 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
+/*Allocate memory for the shared resource, and a lock for each*/
 int	init_forks(t_data *data)
 {
 	int	i;
@@ -22,10 +22,12 @@ int	init_forks(t_data *data)
 		return (ft_error(FORK_ALLOC_FAIL, data), 1);
 	i = -1;
 	while (++i < data->no_philos)
-		pthread_mutex_init(&data->fork_mutexes[i], NULL);
+		pthread_mutex_init(&data->fork_mutexes[i], 0);
 	return (0);
 }
 
+/*for each philo; Allocate memory -> assign forks (point to the 
+	fork address) -> assign mutex for each assigned fork and Initialize them*/
 int	init_philos(t_data *data)
 {
 	int	i;
@@ -48,11 +50,13 @@ int	init_philos(t_data *data)
 		data->philo[i].no_meals = 0;
 		data->philo[i].last_meal_time = get_time_ms();
 	}
-	pthread_mutex_init(data->philo->r_lock, NULL);
-	pthread_mutex_init(data->philo->l_lock, NULL);
+	pthread_mutex_init(data->philo->r_lock, 0);
+	pthread_mutex_init(data->philo->l_lock, 0);
 	return (0);
 }
 
+/*shared info struct initialization and all the mutex
+	 locks for specific purpose*/
 int	init_data(int argc, char **argv, t_data *data)
 {
 	data->no_philos = ft_atoi(argv[1]);
@@ -66,14 +70,15 @@ int	init_data(int argc, char **argv, t_data *data)
 	data->thrd_id = (pthread_t *)malloc(sizeof(pthread_t) * data->no_philos);
 	if (!data->thrd_id)
 		return (ft_error(THREAD_ALLOC_FAIL, data), 1);
-	pthread_mutex_init(&data->print_lock, NULL);
-	pthread_mutex_init(&data->is_dead_lock, NULL);
-	pthread_mutex_init(&data->meals_lock, NULL);
-	pthread_mutex_init(&data->simulation_status_lock, NULL);
-	pthread_mutex_init(&data->m_lock, NULL);
+	pthread_mutex_init(&data->print_lock, 0);
+	pthread_mutex_init(&data->is_dead_lock, 0);
+	pthread_mutex_init(&data->meals_lock, 0);
+	pthread_mutex_init(&data->simulation_status_lock, 0);
+	pthread_mutex_init(&data->m_lock, 0);
 	return (0);
 }
 
+/*initialize general info, the shared resource (forks) & specific data (philo)*/
 int	init(int argc, char **argv, t_data *data)
 {
 	if (init_data(argc, argv, data) != 0)

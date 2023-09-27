@@ -6,12 +6,12 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 06:54:51 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/27 01:17:49 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/27 09:09:16 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
+/*print out err message and check our struct has something initialized in it*/
 void	ft_error(char *err_msg, t_data *data)
 {
 	printf("%s\n", err_msg);
@@ -19,15 +19,14 @@ void	ft_error(char *err_msg, t_data *data)
 		ft_clean(data);
 }
 
+/*desroy mutexes and free allocated memory areas*/
 void	ft_clean(t_data *data)
 {
 	int	i;
 
 	i = -1;
 	while (++i < data->no_philos)
-	{
 		pthread_mutex_destroy(&data->fork_mutexes[i]);
-	}
 	pthread_mutex_destroy(&data->is_dead_lock);
 	pthread_mutex_destroy(&data->print_lock);
 	pthread_mutex_destroy(&data->simulation_status_lock);
