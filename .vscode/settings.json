@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "philo.h": "c"
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/Users/hatesfam/Desktop/my_42work/42_philo",
+            "binaryPath": "/Users/hatesfam/Desktop/my_42work/42_philo/philo",
+            "binaryArgs": []
+        }
+    ]
+}
