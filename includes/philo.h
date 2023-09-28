@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:11:12 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/28 17:07:46 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/28 18:36:11 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 // input error message defs
 # define INVALID_PARAMS "\n😂😂 ERROR: Invalid number of parameters\n"
+# define INVALID_PARAMS_EMTY "\n😂😂 ERROR: Put something in that empty string\n"
 # define INVALID_PHILO_INPUT "\n😂😂 ERROR: No of Philos should be > 0\n"
 
 // alocation erorrs

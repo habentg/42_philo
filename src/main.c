@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:30:30 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/28 17:08:30 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/28 21:31:28 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ static int	run_simulation(t_data *data)
 		{
 			if (is_philo_dead(&data->philo[i]))
 				return (data->philo[i].philo_id);
-			if (data->max_meals != -1 && check_num_meals(data))
-			{
-				pthread_mutex_lock(&data->simulation_status_lock);
-				data->simul_alive = 0;
-				pthread_mutex_unlock(&data->simulation_status_lock);
-				return (-1);
-			}
+		}
+		if (data->max_meals != -1 && check_num_meals(data))
+		{
+			pthread_mutex_lock(&data->simulation_status_lock);
+			data->simul_alive = 0;
+			pthread_mutex_unlock(&data->simulation_status_lock);
+			return (-1);
 		}
 	}
 	return (0);

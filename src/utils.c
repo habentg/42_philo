@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:23:29 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/28 17:09:50 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/28 22:11:03 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	ft_usleep(unsigned long long duration)
 void	print_instruction(void)
 {
 	printf("%s\n", "😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂");
-	printf("%s\n", "ERROR: Invalid Input -> only counting numbers & in INT range");
+	printf("%s\n", "ERROR: Invalid Input -> put "\
+		"counting numbers & in INT range");
 	printf("%s\n", "Philo input format:");
 	printf("%s\n", "✅ ./philo {No of philos} {time to die} {time to sleep} "\
 		"{no of meals (opt)}");
