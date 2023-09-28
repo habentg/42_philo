@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
+/*   By: hatesfam <hatesfam@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 13:34:06 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/28 14:28:51 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:08:16 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

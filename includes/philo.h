@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
+/*   By: hatesfam <hatesfam@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:11:12 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/28 14:28:21 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:07:46 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@
 
 // input error message defs
 # define INVALID_PARAMS "\n😂😂 ERROR: Invalid number of parameters\n"
-# define INVALID_PHILO_INPUT "\n😂😂 ERROR: No of Philos should be b/n 0 & 200\n"
-# define INVALID_MS_INPUT "\n😂😂 ERROR: time to die/eat/sleep Should be >= 60\n"
+# define INVALID_PHILO_INPUT "\n😂😂 ERROR: No of Philos should be > 0\n"
 
 // alocation erorrs
 # define FORK_ALLOC_FAIL "\n😂😂😂 ERROR: Fork memory allocation failed!\n"

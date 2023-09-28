@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   case_one.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
+/*   By: hatesfam <hatesfam@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 08:56:28 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/28 14:28:32 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:08:06 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

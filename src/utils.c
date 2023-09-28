@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
+/*   By: hatesfam <hatesfam@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:23:29 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/28 14:31:10 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:09:50 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ long	ft_atoi(const char *str)
 			return (-1);
 		number = (number * 10) + (str[i] - '0');
 		if (number > INT_MAX || number < INT_MIN)
-			return (print_instruction(), -1);
+			return (-1);
 		i++;
 	}
 	return (number);
@@ -66,7 +66,7 @@ void	ft_usleep(unsigned long long duration)
 void	print_instruction(void)
 {
 	printf("%s\n", "😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂");
-	printf("%s\n", "ERROR: Invalid Input -> only counting numbers");
+	printf("%s\n", "ERROR: Invalid Input -> only counting numbers & in INT range");
 	printf("%s\n", "Philo input format:");
 	printf("%s\n", "✅ ./philo {No of philos} {time to die} {time to sleep} "\
 		"{no of meals (opt)}");

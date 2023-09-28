@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
+/*   By: hatesfam <hatesfam@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:30:30 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/28 14:29:43 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:08:30 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	is_philo_dead(t_philo *philo)
 
 // return - philo_id is needed for printing our who died 🎖️🎖️🎖️
 // break - we just terminate the loop coz max num of meals is reached
-static int	*run_simulation(t_data *data, int *id)
+static int	run_simulation(t_data *data)
 {
 	int		i;
 
@@ -69,16 +69,13 @@ static int	*run_simulation(t_data *data, int *id)
 		while (++i < data->no_philos)
 		{
 			if (is_philo_dead(&data->philo[i]))
-			{
-				*id = i;
-				return (id);
-			}
+				return (data->philo[i].philo_id);
 			if (data->max_meals != -1 && check_num_meals(data))
 			{
 				pthread_mutex_lock(&data->simulation_status_lock);
 				data->simul_alive = 0;
 				pthread_mutex_unlock(&data->simulation_status_lock);
-				return (id);
+				return (-1);
 			}
 		}
 	}
@@ -96,20 +93,22 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 	int		i;
-	int		*id;
+	int		id;
 
-	id = NULL;
 	i = -1;
 	if (check_argc(argc, argv) != 0)
 		return (1);
 	if (init(argc, argv, &data) != 0)
 		return (1);
 	start_philo(&data);
-	id = malloc(sizeof(int) * 1);
-	*id = -1;
-	id = run_simulation(&data, id);
-	if (*id != -1)
-		display_action(&data.philo[*id], DEAD);
+	id = -1;
+	id = run_simulation(&data);
+	if (id != -1)
+	{
+		pthread_mutex_lock(&data.print_lock);
+		printf("%lld %d %s\n", get_time_ms() - data.start_time, id, "died");
+		pthread_mutex_unlock(&data.print_lock);
+	}
 	while (++i < data.no_philos)
 		if (pthread_join(data.thrd_id[i], 0) != 0)
 			return (ft_error(JOIN_TH_FAIL, &data), 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
+/*   By: hatesfam <hatesfam@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 03:57:43 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/27 09:38:40 by hatesfam         ###   ########.fr       */
+/*   Created: 2023/09/28 17:08:42 by hatesfam          #+#    #+#             */
+/*   Updated: 2023/09/28 17:08:42 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ unsigned long long	get_time_ms(void)
 /*printing our our actions*/
 void	display_action(t_philo *philo, char *action)
 {
+	if (!check_simulation(philo->data))
+		return ;
 	pthread_mutex_lock(&philo->data->print_lock);
 	printf("%lld %d %s\n", get_time_ms() - \
 		philo->data->start_time, philo->philo_id, action);

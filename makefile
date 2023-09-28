@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+         #
+#    By: hatesfam <hatesfam@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/14 10:12:00 by hatesfam          #+#    #+#              #
-#    Updated: 2023/09/28 14:31:39 by hatesfam         ###   ########.fr        #
+#    Updated: 2023/09/28 17:09:44 by hatesfam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,8 @@
 NAME = philo
 
 CC = cc
-CFLAG = -Wall -Wextra -Werror -g3
+CFLAG = -Wall -Wextra -Werror
 LINKER = -pthread
-CFLAG = -Wall -Wextra -Werror -g3
 RM = rm -rf
 
 SRC_FILES =  src/main.c src/check_args.c src/utils.c src/init.c src/case_one.c\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
+/*   By: hatesfam <hatesfam@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:42:24 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/28 14:30:10 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:08:36 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	philo_take_forks(t_philo *philo)
 			return (0);
 		if (take_forks(philo))
 			break ;
-		usleep(100);
+		usleep(10);
 	}
 	return (1);
 }
