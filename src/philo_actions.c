@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:42:24 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/27 09:37:20 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:51:18 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	philo_take_forks(t_philo *philo)
 			return (0);
 		if (take_forks(philo))
 			break ;
-		usleep(10);
+		usleep(100);
 	}
 	return (1);
 }
@@ -66,6 +66,6 @@ int	philo_thinks(t_philo *philo)
 	if (!check_simulation(philo->data))
 		return (0);
 	display_action(philo, THINK);
-	usleep(10);
+	usleep(100);
 	return (1);
 }

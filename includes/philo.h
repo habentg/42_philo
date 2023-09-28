@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:11:12 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/27 09:46:45 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/28 13:16:31 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ unsigned long long			get_time_ms(void);
 void						display_action(t_philo *philo, char *action);
 
 //philo actions
-void						*display_philo(void *philo_ptr);
+void						*routine(void *philo_ptr);
 int							check_simulation(t_data *data);
 int							philo_take_forks(t_philo *philo);
 int							take_forks(t_philo *philo);

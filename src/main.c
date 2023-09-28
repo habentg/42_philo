@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:30:30 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/27 09:30:33 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/28 12:35:23 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	is_philo_dead(t_philo *philo)
 
 // return - philo_id is needed for printing our who died 🎖️🎖️🎖️
 // break - we just terminate the loop coz max num of meals is reached
-static int	run_simulation(t_data *data)
+static int	*run_simulation(t_data *data, int *id)
 {
 	int		i;
 
@@ -69,14 +69,17 @@ static int	run_simulation(t_data *data)
 		while (++i < data->no_philos)
 		{
 			if (is_philo_dead(&data->philo[i]))
-				return (i);
-		}
-		if (data->max_meals != -1 && check_num_meals(data))
-		{
-			pthread_mutex_lock(&data->simulation_status_lock);
-			data->simul_alive = 0;
-			pthread_mutex_unlock(&data->simulation_status_lock);
-			break ;
+			{
+				*id = i;
+				return (id);
+			}
+			if (data->max_meals != -1 && check_num_meals(data))
+			{
+				pthread_mutex_lock(&data->simulation_status_lock);
+				data->simul_alive = 0;
+				pthread_mutex_unlock(&data->simulation_status_lock);
+				return (id);
+			}
 		}
 	}
 	return (0);
@@ -92,19 +95,21 @@ static int	run_simulation(t_data *data)
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	int		id;
 	int		i;
+	int		*id;
 
+	id = NULL;
 	i = -1;
-	id = -1;
 	if (check_argc(argc, argv) != 0)
 		return (1);
 	if (init(argc, argv, &data) != 0)
 		return (1);
 	start_philo(&data);
-	id = run_simulation(&data);
-	if (id != -1)
-		display_action(&data.philo[id], DEAD);
+	id = malloc(sizeof(int) * 1);
+	*id = -1;
+	id = run_simulation(&data, id);
+	if (*id != -1)
+		display_action(&data.philo[*id], DEAD);
 	while (++i < data.no_philos)
 		if (pthread_join(data.thrd_id[i], 0) != 0)
 			return (ft_error(JOIN_TH_FAIL, &data), 1);

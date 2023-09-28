@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.abudhabi42.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:37:47 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/27 09:15:54 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/28 13:16:21 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ int	init_forks(t_data *data)
 {
 	int	i;
 
-	data->fork_mutexes = malloc(data->no_philos * sizeof(pthread_mutex_t));
-	data->forks = ft_calloc(data->no_philos, sizeof(int));
+	data->fork_mutexes = (pthread_mutex_t *)malloc(data->no_philos * \
+		sizeof(pthread_mutex_t));
+	data->forks = (int *)ft_calloc(data->no_philos, sizeof(int));
 	if (!data->fork_mutexes || !data->forks)
 		return (ft_error(FORK_ALLOC_FAIL, data), 1);
 	i = -1;
@@ -33,7 +34,7 @@ int	init_philos(t_data *data)
 	int	i;
 
 	i = -1;
-	data->philo = malloc(sizeof(t_philo) * data->no_philos);
+	data->philo = (t_philo *)malloc(sizeof(t_philo) * data->no_philos);
 	if (!data->philo)
 		return (ft_error(PHILO_ALLOC_FAIL, data), 1);
 	while (++i < data->no_philos)
@@ -89,11 +90,10 @@ int	init(int argc, char **argv, t_data *data)
 		return (1);
 	return (0);
 }
-
 // for (int i = 0; i < data->no_philos; i++)
 // {
 // 	printf("%d Right fork: %p\n", data->philo[i].
-//		philo_id, data->philo[i].r_fork);
-// 	printf("%d Left fork: %p\n", data->philo[i].philo_id,
-//		 data->philo[i].l_fork);
+// 		philo_id, data->philo[i].r_fork);
+// 	printf("%d Left fork : %p\n", data->philo[i].philo_id,
+// 		data->philo[i].l_fork);
 // }
