@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:11:12 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/28 18:36:11 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/30 17:06:26 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define SLEEP "is sleeping"
 # define THINK "is thinking"
 # define EAT "is eating"
-# define DEAD "is dead"
+# define DEAD "died"
 
 // structs
 struct	s_data;

@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:30:30 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/30 15:02:44 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/30 17:06:46 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int	main(int argc, char **argv)
 	int		i;
 	int		id;
 
-	i = -1;
 	if (check_argc(argc, argv) != 0)
 		return (1);
 	if (init(argc, argv, &data) != 0)
@@ -106,12 +105,15 @@ int	main(int argc, char **argv)
 	if (id != -1)
 	{
 		pthread_mutex_lock(&data.print_lock);
-		printf("%lld %d %s\n", get_time_ms() - data.start_time, id, "died");
+		printf("%lld %d %s\n", get_time_ms() - data.start_time, id, DEAD);
 		pthread_mutex_unlock(&data.print_lock);
 	}
+	i = -1;
 	while (++i < data.no_philos)
+	{
 		if (pthread_join(data.thrd_id[i], 0) != 0)
 			return (ft_error(JOIN_TH_FAIL, &data), 1);
+	}
 	ft_clean(&data);
 	return (0);
 }

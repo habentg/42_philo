@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:23:29 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/28 22:11:03 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/30 16:58:16 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,19 @@ void	ft_usleep(unsigned long long duration)
 	time = get_time_ms();
 	while (get_time_ms() - time < duration)
 		usleep(duration / 10);
+}
+
+/*get the num of milliseconds form 1st of Jan 1970 -> CRAZY*/
+unsigned long long	get_time_ms(void)
+{
+	struct timeval	tv;
+	long long		curr_time_ms;
+
+	curr_time_ms = 0;
+	if (gettimeofday(&tv, 0))
+		return (ft_error(GET_TIME_ERROR, 0), 1);
+	curr_time_ms = (tv.tv_sec * (unsigned long long)1000) + (tv.tv_usec / 1000);
+	return (curr_time_ms);
 }
 
 // just instructions on the format of the input.

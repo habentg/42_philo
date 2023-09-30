@@ -45,8 +45,10 @@ void	start_philo(t_data *data)
 	if (data->no_philos == 1)
 		case_one(data);
 	else
+	{
 		while (++i < data->no_philos)
 			if (pthread_create(&data->thrd_id[i], 0, &routine, \
 				&data->philo[i]) != 0)
 				ft_error(CREATE_TH_FAIL, data);
+	}
 }

@@ -6,11 +6,26 @@
 /*   By: hatesfam <hatesfam@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:42:24 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/28 22:10:01 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/30 16:57:54 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+/*printing our our actions*/
+void	display_action(t_philo *philo, char *action)
+{
+	pthread_mutex_lock(&philo->data->print_lock);
+	if (!check_simulation(philo->data))
+	{
+		pthread_mutex_unlock(&philo->data->print_lock);
+		return ;
+	}
+	printf("%lld %d %s\n", (get_time_ms() - \
+		philo->data->start_time), philo->philo_id, action);
+	pthread_mutex_unlock(&philo->data->print_lock);
+}
+
 /*check if the simulation is still alive*/
 /*1 -  philo took forks from both sides, or wiat till then
 	// dont comeback empty handed*/

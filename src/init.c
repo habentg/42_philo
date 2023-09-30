@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:37:47 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/28 22:43:09 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/30 17:02:09 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ int	init(int argc, char **argv, t_data *data)
 		return (1);
 	return (0);
 }
-// for (int i = 0; i < data->no_philos; i++)
-// {
-// 	printf("%d Right fork: %p\n", data->philo[i].
-// 		philo_id, data->philo[i].r_fork);
-// 	printf("%d Left fork : %p\n", data->philo[i].philo_id,
-// 		data->philo[i].l_fork);
-// }
+	// for (int i = 0; i < data->no_philos; i++)
+	// {
+	// 	printf("%d Right fork: %p\n", data->philo[i].
+	// 		philo_id, data->philo[i].r_fork);
+	// 	printf("%d Left fork : %p\n", data->philo[i].philo_id,
+	// 		data->philo[i].l_fork);
+	// }

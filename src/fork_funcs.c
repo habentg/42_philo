@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 13:34:06 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/28 21:47:24 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/30 15:34:31 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	drop_fork(t_philo *philo, char r_or_l, int code)
 		else
 			*philo->r_fork = 0;
 		pthread_mutex_unlock(philo->r_lock);
-		// display_action(philo, "Droped Right Fork===>");
 	}
 	else
 	{
@@ -56,7 +55,6 @@ void	drop_fork(t_philo *philo, char r_or_l, int code)
 		else
 			*philo->l_fork = 0;
 		pthread_mutex_unlock(philo->l_lock);
-		// display_action(philo, "Droped Left Fork===>");
 	}
 }
 
@@ -81,15 +79,3 @@ int	take_forks(t_philo *philo)
 	}
 	return (1);
 }
-	// if (philo->philo_id % 2 == 0)
-	// {
-	// 	if (!take_fork(philo, 'r') || !take_fork(philo, 'l'))
-	// 		return (0);
-	// }
-	// else
-	// {
-	// 	if (!take_fork(philo, 'l') || !take_fork(philo, 'r'))
-	// 		return (0);
-	// }
-	// if (!take_fork(philo, 'l'))
-	// 	return (0);
