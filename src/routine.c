@@ -18,8 +18,8 @@ void	*routine(void *philo_ptr)
 	t_philo	*philo;
 
 	philo = (t_philo *)philo_ptr;
-	// if (philo->philo_id % 2 == 0 || philo->philo_id == philo->data->no_philos)
-	// 	philo_thinks(philo);
+	if (philo->philo_id % 2 == 0 || philo->philo_id == philo->data->no_philos)
+		philo_thinks(philo);
 	while (check_simulation(philo->data))
 	{
 		if (!philo_take_forks(philo))

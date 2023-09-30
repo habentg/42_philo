@@ -28,9 +28,14 @@ unsigned long long	get_time_ms(void)
 /*printing our our actions*/
 void	display_action(t_philo *philo, char *action)
 {
-	if (!check_simulation(philo->data))
-		return ;
+	// if (!check_simulation(philo->data))
+	// 	return ;
 	pthread_mutex_lock(&philo->data->print_lock);
+	if (!check_simulation(philo->data))
+	{
+		pthread_mutex_unlock(&philo->data->print_lock);
+		return ;
+	}
 	printf("%lld %d %s\n", (get_time_ms() - \
 		philo->data->start_time), philo->philo_id, action);
 	pthread_mutex_unlock(&philo->data->print_lock);
