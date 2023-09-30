@@ -6,7 +6,7 @@
 /*   By: hatesfam <hatesfam@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 23:30:30 by hatesfam          #+#    #+#             */
-/*   Updated: 2023/09/28 21:31:28 by hatesfam         ###   ########.fr       */
+/*   Updated: 2023/09/30 15:02:44 by hatesfam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	check_num_meals(t_data *data)
 	while (++i < data->no_philos)
 	{
 		pthread_mutex_lock(&data->meals_lock);
-		if (data->philo[i].no_meals != data->max_meals)
+		if (data->philo[i].no_meals < data->max_meals)
 		{
 			pthread_mutex_unlock(&data->meals_lock);
 			return (0);
