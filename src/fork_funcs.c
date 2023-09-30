@@ -19,36 +19,44 @@ int	take_fork(t_philo *philo, char r_or_l)
 	if (r_or_l == 'r')
 	{
 		pthread_mutex_lock(philo->r_lock);
-		if (*philo->r_fork == 1)
+		if (*philo->r_fork == -1 || *philo->r_fork == philo->philo_id)
 			return (pthread_mutex_unlock(philo->r_lock), 0);
-		*philo->r_fork = 1;
+		*philo->r_fork = -1;
 		pthread_mutex_unlock(philo->r_lock);
 	}
 	else
 	{
 		pthread_mutex_lock(philo->l_lock);
-		if (*philo->l_fork == 1)
+		if (*philo->l_fork == -1 || *philo->l_fork == philo->philo_id)
 			return (pthread_mutex_unlock(philo->l_lock), 0);
-		*philo->l_fork = 1;
+		*philo->l_fork = -1;
 		pthread_mutex_unlock(philo->l_lock);
 	}
 	return (1);
 }
 
 /*drop (make available) right or left fork based on the character given*/
-void	drop_fork(t_philo *philo, char r_or_l)
+void	drop_fork(t_philo *philo, char r_or_l, int code)
 {
 	if (r_or_l == 'r')
 	{
 		pthread_mutex_lock(philo->r_lock);
-		*philo->r_fork = 0;
+		if (code == 1)
+			*philo->r_fork = philo->philo_id;
+		else
+			*philo->r_fork = 0;
 		pthread_mutex_unlock(philo->r_lock);
+		// display_action(philo, "Droped Right Fork===>");
 	}
 	else
 	{
 		pthread_mutex_lock(philo->l_lock);
-		*philo->l_fork = 0;
+		if (code == 1)
+			*philo->l_fork = philo->philo_id;
+		else
+			*philo->l_fork = 0;
 		pthread_mutex_unlock(philo->l_lock);
+		// display_action(philo, "Droped Left Fork===>");
 	}
 }
 
@@ -62,16 +70,26 @@ int	take_forks(t_philo *philo)
 		if (!take_fork(philo, 'r'))
 			return (0);
 		if (!take_fork(philo, 'l'))
-			return (drop_fork(philo, 'r'), 0);
+			return (drop_fork(philo, 'r', 0), 0);
 	}
 	else
 	{
 		if (!take_fork(philo, 'l'))
 			return (0);
 		if (!take_fork(philo, 'r'))
-			return (drop_fork(philo, 'l'), 0);
+			return (drop_fork(philo, 'l', 0), 0);
 	}
-	display_action(philo, R_FORK_TAKEN);
-	display_action(philo, L_FORK_TAKEN);
 	return (1);
 }
+	// if (philo->philo_id % 2 == 0)
+	// {
+	// 	if (!take_fork(philo, 'r') || !take_fork(philo, 'l'))
+	// 		return (0);
+	// }
+	// else
+	// {
+	// 	if (!take_fork(philo, 'l') || !take_fork(philo, 'r'))
+	// 		return (0);
+	// }
+	// if (!take_fork(philo, 'l'))
+	// 	return (0);

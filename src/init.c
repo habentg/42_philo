@@ -48,6 +48,7 @@ int	init_philos(t_data *data)
 			[data->philo[i].philo_id - 1];
 		data->philo[i].l_lock = &data->fork_mutexes[(data->philo[i].philo_id) \
 			% data->no_philos];
+		data->philo[i].is_eating = 0;
 		data->philo[i].no_meals = 0;
 		data->philo[i].last_meal_time = get_time_ms();
 	}

@@ -21,7 +21,7 @@ void	*one_philo(void *philo_ptr)
 		usleep(100);
 	display_action(philo, "taken a fork");
 	ft_usleep(philo->data->time_die + 1);
-	drop_fork(philo, 'l');
+	drop_fork(philo, 'l', 0);
 	return (0);
 }
 

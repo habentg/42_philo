@@ -22,6 +22,8 @@
 # include <sys/time.h>
 # include <string.h>
 
+// status
+
 // input error message defs
 # define INVALID_PARAMS "\n😂😂 ERROR: Invalid number of parameters\n"
 # define INVALID_PARAMS_EMTY "\n😂😂 ERROR: Put something in that empty string\n"
@@ -57,6 +59,7 @@ typedef struct s_philo
 	pthread_mutex_t			*r_lock;
 	pthread_mutex_t			*l_lock;
 	unsigned long long		last_meal_time;
+	int						is_eating;
 	int						no_meals;
 }	t_philo;
 
@@ -96,7 +99,7 @@ int							check_simulation(t_data *data);
 int							philo_take_forks(t_philo *philo);
 int							take_forks(t_philo *philo);
 int							take_fork(t_philo *philo, char r_or_l);
-void						drop_fork(t_philo *philo, char r_or_l);
+void						drop_fork(t_philo *philo, char r_or_l, int code);
 int							philo_eats(t_philo *philo);
 int							philo_sleeps(t_philo *philo);
 int							philo_thinks(t_philo *philo);

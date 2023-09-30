@@ -27,6 +27,8 @@ int	philo_take_forks(t_philo *philo)
 			break ;
 		usleep(20);
 	}
+	display_action(philo, R_FORK_TAKEN);
+	display_action(philo, L_FORK_TAKEN);
 	return (1);
 }
 
@@ -45,8 +47,8 @@ int	philo_eats(t_philo *philo)
 	if (philo->data->max_meals != -1)
 		philo->no_meals++;
 	pthread_mutex_unlock(&philo->data->meals_lock);
-	drop_fork(philo, 'r');
-	drop_fork(philo, 'l');
+	drop_fork(philo, 'r', 1);
+	drop_fork(philo, 'l', 1);
 	return (1);
 }
 
